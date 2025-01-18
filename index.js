@@ -1,9 +1,15 @@
 const express = require("express");
 const urlRoute = require("./router/url")
 const {connectToMongoDB} = require("./connect")
-const URL = require("./models/url");
-const staticRoute = require("./router/staticRouter");
+const cookieParser = require("cookie-parser");
 const path = require("path");
+const {restrictToLoginUserOnly,checkAuth} = require("./middleware/auth");
+
+
+const URL = require("./models/url");
+
+const staticRoute = require("./router/staticRouter");
+const userRoute = require("./router/user");
 
 const app = express();
 const PORT = 8001;
@@ -18,10 +24,13 @@ app.set("views",path.resolve("./views"));
 
 app.use(express.json()); //support json data
 app.use(express.urlencoded({extended:false})); //support form data
+app.use(cookieParser());
+
 
 //POST and GET url link and the analytics
-app.use("/url",urlRoute);
-app.use("/",staticRoute);
+app.use("/url",restrictToLoginUserOnly,urlRoute);
+app.use("/user",userRoute);
+app.use("/",checkAuth, staticRoute);
 
 //TGET request to /url/analytics/:shortId to retrieve analytics for a specific shortened URL.
 app.get("/url/:shortId" ,async(req,res) => {
