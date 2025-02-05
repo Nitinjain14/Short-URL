@@ -1,14 +1,14 @@
 const express = require("express");
-const urlRoute = require("./router/url")
-const {connectToMongoDB} = require("./connect")
+const urlRoute = require("../router/url")
+const {connectToMongoDB} = require("../connect")
 const cookieParser = require("cookie-parser");
 const path = require("path");
-const {restrictTo, checkForAuthentication} = require("./middleware/auth");
+const {restrictTo, checkForAuthentication} = require("../middleware/auth");
 
 
-const URL = require("./models/url");
-const staticRoute = require("./router/staticRouter");
-const userRoute = require("./router/user");
+const URL = require("../models/url");
+const staticRoute = require("../router/staticRouter");
+const userRoute = require("../router/user");
 
 const app = express();
 // Replace this with your actual MongoDB Atlas connection string
