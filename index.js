@@ -7,16 +7,22 @@ const {restrictTo, checkForAuthentication} = require("./middleware/auth");
 
 
 const URL = require("./models/url");
-
 const staticRoute = require("./router/staticRouter");
 const userRoute = require("./router/user");
 
 const app = express();
-const PORT = 8001;
+// Replace this with your actual MongoDB Atlas connection string
+const MONGODB_URI = "mongodb+srv://admin:your_secure_password@cluster0.mongodb.net/short-url?retryWrites=true&w=majority";
+
+// Replace this with your preferred port, but allow dynamic assignment for deployment
+const PORT = process.env.PORT || 8001;
 
 //connecting MongoDB
-connectToMongoDB("mongodb://localhost:27017/short-url")
-.then(()=>console.log("mongo connected"));
+ 
+connectToMongoDB(MONGODB_URI)
+    .then(() => console.log("MongoDB connected"))
+    .catch((err) => console.error("MongoDB connection error:", err));
+
 
 //Setting UI using Ejs and runnning it
 app.set("view engine", "ejs");
