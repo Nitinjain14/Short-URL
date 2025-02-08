@@ -10,13 +10,13 @@ router.get("/admin/urls", restrictTo(["ADMIN"]), async (req, res) =>{
     });
 });
 
-router.get("/", restrictTo(["NORMAL","ADMIN"]), async (req, res) =>{
-    const allurls = await URL.find({createdBy: req.user._id});
-    return res.render("home",{
+router.get("/", restrictTo(["NORMAL", "ADMIN"]), async (req, res) => {
+    const allurls = await URL.find({ createdBy: req.user._id }).lean(); // Use lean()
+    return res.render("home", {
         urls: allurls,
     });
-
 });
+
 
 router.get("/signup", async (req, res) =>{
     return res.render("signup");

@@ -2,10 +2,10 @@
   "name": "short-url",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index"
-  },
+ "scripts": {
+  "test": "echo \"Error: no test specified\" && exit 1",
+  "start": "nodemon api/index.js"
+},
   "author": "",
   "license": "ISC",
   "description": "",
